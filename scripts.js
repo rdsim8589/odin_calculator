@@ -76,18 +76,17 @@ function calculator() {
                     currentOperator = input;
                 }
                 value = "0";
-            } else if (input = "+/-") {
+            } else if (input == "+/-") {
                 if(value.includes("-")) {
                     value = value.slice(1);
                 } else {
                     value  = "-" + value;
                 }
                 updateDisplay(value);
+            } else if (input == "%") {
+                if(!isNaN(value)) value = (Number(value) * 0.01).toString();
+                updateDisplay(value);
             }
-/*                 else if (input = "%") {
-                if
-                value = Number(value)
-            } */
         })
     })
 
