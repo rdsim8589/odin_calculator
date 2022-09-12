@@ -35,7 +35,53 @@ function operate(a,b, operator) {
     }
     return value;
 }
-console.log(operate(8,7,"+"));
-console.log(operate(8,7,"-"));
-console.log(operate(8,7,"*"));
-console.log(operate(8,7,"/"));
+
+/* function updateDisplay(contents) {
+    const display = document.querySelector(".display");
+    display.innerHTML = contents;
+}
+ */
+function calculator() {
+    //record button input as a string?
+    let value = "";
+    let a = null;
+    let b = null;
+    currentOperator = null;
+    const buttons = document.querySelectorAll("input[type='button'");
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            // check if value is int or . then we append
+            input = button.value;
+            numbers = "0123456789."
+            operators = "/*-+"
+            if (numbers.includes(input)) {
+                if (input == "." && value.includes(".")) return;
+                value += input
+                //updateDisplay(value);
+            } else if (operators.includes(input)) {
+                if (a == null) {
+                    a = Number(value);
+                } else if (b == null) {
+                    if (value != "") {
+                        b = Number(value);
+                        a = operate(a,b, currentOperator);
+                        // update display
+                        b = null;
+                    }
+                }
+                currentOperator = input;
+                value = "";
+            }
+            console.log(`value: ${value}`);
+            console.log(`op: ${currentOperator}`);
+            console.log(`a: ${a}`);
+            // if operator, store the previous value and wait for the next value
+
+            //int -> op ->int -> { display results}
+            // int-> op -> op -> {apply operations with a = b =int}
+        })
+    })
+
+}
+
+calculator()
