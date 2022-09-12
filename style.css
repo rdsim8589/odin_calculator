@@ -19,10 +19,12 @@ body {
 
 .display {
     border-style: solid;
-    height: 50px;
+    height: 75px;
     align-items: stretch;
     text-align: right;
-    font-size: larger;
+    font-size: 70px;
+    width: 306px;
+    overflow: hidden;
 }
 
 .operators {
