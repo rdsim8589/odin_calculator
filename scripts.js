@@ -36,11 +36,11 @@ function operate(a,b, operator) {
     return value;
 }
 
-/* function updateDisplay(contents) {
+function updateDisplay(contents) {
     const display = document.querySelector(".display");
     display.innerHTML = contents;
 }
- */
+
 function calculator() {
     //record button input as a string?
     let value = "";
@@ -57,7 +57,7 @@ function calculator() {
             if (numbers.includes(input)) {
                 if (input == "." && value.includes(".")) return;
                 value += input
-                //updateDisplay(value);
+                updateDisplay(value);
             } else if (operators.includes(input)) {
                 if (a == null) {
                     a = Number(value);
@@ -65,7 +65,7 @@ function calculator() {
                     if (value != "") {
                         b = Number(value);
                         a = operate(a,b, currentOperator);
-                        // update display
+                        updateDisplay(a);
                         b = null;
                     }
                 }
