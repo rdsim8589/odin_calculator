@@ -42,9 +42,8 @@ function updateDisplay(contents) {
 }
 
 function calculator() {
-    let value = "";
+    let value = "0";
     let a = null;
-    let b = null;
     currentOperator = null;
     const buttons = document.querySelectorAll("input[type='button'");
     buttons.forEach((button) => {
@@ -53,26 +52,22 @@ function calculator() {
             numbers = "0123456789."
             operators = "/*-+="
             if (input == "AC") {
-                value = "";
+                value = "0";
                 a = null;
-                b = null;
                 currentOperator = null;
                 updateDisplay(0);
             } else if (numbers.includes(input)) {
                 if (input == "." && value.includes(".")) return;
+                if (input == "0" && value == "0") return;
+                if (value == "0") value = "";
                 value += input
                 updateDisplay(value);
             } else if (operators.includes(input)) {
-                //handle a and b value
                 if (a == null) {
                     a = Number(value);
-                } else if (b == null) {
-                    if (value != "") {
-                        b = Number(value);
-                        a = operate(a,b, currentOperator);
-                        updateDisplay(a);
-                        b = null;
-                    }                 
+                } else if (value !="0") {
+                    a = operate(a, Number(value), currentOperator);
+                    updateDisplay(a);
                 }
                 // handle =
                 if (input == "=") {
@@ -80,8 +75,19 @@ function calculator() {
                 } else {
                     currentOperator = input;
                 }
-                value = "";
+                value = "0";
+            } else if (input = "+/-") {
+                if(value.includes("-")) {
+                    value = value.slice(1);
+                } else {
+                    value  = "-" + value;
+                }
+                updateDisplay(value);
             }
+/*                 else if (input = "%") {
+                if
+                value = Number(value)
+            } */
         })
     })
 
