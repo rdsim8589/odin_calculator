@@ -42,7 +42,6 @@ function updateDisplay(contents) {
 }
 
 function calculator() {
-    //record button input as a string?
     let value = "";
     let a = null;
     let b = null;
@@ -50,15 +49,21 @@ function calculator() {
     const buttons = document.querySelectorAll("input[type='button'");
     buttons.forEach((button) => {
         button.addEventListener("click", () => {
-            // check if value is int or . then we append
             input = button.value;
             numbers = "0123456789."
-            operators = "/*-+"
-            if (numbers.includes(input)) {
+            operators = "/*-+="
+            if (input == "AC") {
+                value = "";
+                a = null;
+                b = null;
+                currentOperator = null;
+                updateDisplay(0);
+            } else if (numbers.includes(input)) {
                 if (input == "." && value.includes(".")) return;
                 value += input
                 updateDisplay(value);
             } else if (operators.includes(input)) {
+                //handle a and b value
                 if (a == null) {
                     a = Number(value);
                 } else if (b == null) {
@@ -67,18 +72,16 @@ function calculator() {
                         a = operate(a,b, currentOperator);
                         updateDisplay(a);
                         b = null;
-                    }
+                    }                 
                 }
-                currentOperator = input;
+                // handle =
+                if (input == "=") {
+                    currentOperator = null;
+                } else {
+                    currentOperator = input;
+                }
                 value = "";
             }
-            console.log(`value: ${value}`);
-            console.log(`op: ${currentOperator}`);
-            console.log(`a: ${a}`);
-            // if operator, store the previous value and wait for the next value
-
-            //int -> op ->int -> { display results}
-            // int-> op -> op -> {apply operations with a = b =int}
         })
     })
 
