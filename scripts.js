@@ -42,6 +42,8 @@ function updateDisplay(contents) {
 }
 
 function calculator() {
+    const numbers = "0123456789."
+    const operators = "/*-+="
     let value = "0";
     let a = null;
     currentOperator = null;
@@ -49,8 +51,6 @@ function calculator() {
     buttons.forEach((button) => {
         button.addEventListener("click", () => {
             input = button.value;
-            numbers = "0123456789."
-            operators = "/*-+="
             if (input == "AC") {
                 value = "0";
                 a = null;
@@ -60,12 +60,13 @@ function calculator() {
                 if (input == "." && value.includes(".")) return;
                 if (input == "0" && value == "0") return;
                 if (value == "0") value = "";
+                if (currentOperator == null) a = null; // putting another number after = resets
                 value += input
                 updateDisplay(value);
             } else if (operators.includes(input)) {
                 if (a == null) {
                     a = Number(value);
-                } else if (value !="0") {
+                } else if (a != null && currentOperator != null) {
                     a = operate(a, Number(value), currentOperator);
                     updateDisplay(a);
                 }
