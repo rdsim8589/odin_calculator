@@ -72,7 +72,7 @@ function calculator() {
                     updateDisplay(a);
                 }
                 // handle =
-                (input == "=") ? currentOperator = null : currentOperator = input;
+                currentOperator = (input == "=") ? null : input;
                 value = "0";
             } else if (input == "+/-") {
                 if(value.includes("-")) {
